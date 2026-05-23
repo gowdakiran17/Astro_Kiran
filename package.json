@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "build": "modelence build",
+    "build": "modelence build && rm -rf dist && cp -r .modelence/build/client dist",
     "start": "node .modelence/build/app.mjs",
     "dev": "modelence dev",
     "test": "echo \"Error: no test specified\" && exit 1"
