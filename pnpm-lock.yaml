@@ -56,6 +56,9 @@ dependencies:
   tailwind-merge:
     specifier: ^3.4.0
     version: 3.6.0
+  vite:
+    specifier: '6'
+    version: 6.4.2(@types/node@20.19.41)(jiti@2.7.0)(tsx@4.22.3)
   vite-plugin-enter-dev:
     specifier: ^0.0.7
     version: 0.0.7(vite@6.4.2)
