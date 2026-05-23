@@ -14,6 +14,7 @@
     "@babel/plugin-transform-react-jsx": "^7.28.6",
     "@modelence/react-query": "^1.2.5",
     "@tanstack/react-query": "^5.90.21",
+    "@vitejs/plugin-react": "^4.7.0",
     "clsx": "^2.1.1",
     "esbuild": "^0.28.0",
     "lucide-react": "^0.575.0",
