@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { signupWithPassword } from 'modelence/client';
+import { useAuth } from '../lib/auth';
 import toast, { Toaster } from 'react-hot-toast';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
@@ -9,6 +9,7 @@ import { Label } from '../components/ui/Label';
 
 export default function SignupPage() {
   const navigate = useNavigate();
+  const { signup } = useAuth();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
@@ -26,7 +27,7 @@ export default function SignupPage() {
 
     setLoading(true);
     try {
-      await signupWithPassword({ email, password });
+      await signup(email, password);
       setSuccess(true);
       setTimeout(() => navigate('/'), 1500);
     } catch (err: unknown) {
@@ -34,7 +35,7 @@ export default function SignupPage() {
     } finally {
       setLoading(false);
     }
-  }, [navigate]);
+  }, [signup, navigate]);
 
   if (success) {
     return (

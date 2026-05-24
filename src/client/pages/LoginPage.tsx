@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { loginWithPassword } from 'modelence/client';
+import { useAuth } from '../lib/auth';
 import toast, { Toaster } from 'react-hot-toast';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
@@ -10,6 +10,7 @@ import { Label } from '../components/ui/Label';
 export default function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { login } = useAuth();
   const [loading, setLoading] = useState(false);
   const redirect = new URLSearchParams(location.search).get('_redirect') || '/';
 
@@ -21,14 +22,14 @@ export default function LoginPage() {
 
     setLoading(true);
     try {
-      await loginWithPassword({ email, password });
+      await login(email, password);
       navigate(redirect);
     } catch (err: unknown) {
       toast.error(err instanceof Error ? err.message : 'Login failed');
     } finally {
       setLoading(false);
     }
-  }, [navigate, redirect]);
+  }, [login, navigate, redirect]);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-background px-4">

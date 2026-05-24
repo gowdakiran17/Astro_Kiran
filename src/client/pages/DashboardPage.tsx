@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSession, logout } from 'modelence/client';
+import { useAuth } from '../lib/auth';
 import { Star, Calendar, Home, Hash, Flame, LogOut, BookOpen, Moon } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/Card';
@@ -67,10 +67,10 @@ const features = [
 ];
 
 export default function DashboardPage() {
-  const { user } = useSession();
+  const { user, logout } = useAuth();
 
-  const handleLogout = async () => {
-    await logout();
+  const handleLogout = () => {
+    logout();
     window.location.href = '/login';
   };
 

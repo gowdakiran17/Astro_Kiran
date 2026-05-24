@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { logout } from 'modelence/client';
+import { useAuth } from '../lib/auth';
 
 export default function LogoutPage() {
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
   useEffect(() => {
-    logout().then(() => navigate('/login'));
-  }, [navigate]);
+    logout();
+    navigate('/login');
+  }, [logout, navigate]);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-background">

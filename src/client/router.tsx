@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { createBrowserRouter, Navigate, Outlet, useLocation } from 'react-router-dom';
-import { useSession } from 'modelence/client';
+import { useAuth } from './lib/auth';
 
 // Lazy-loaded pages
 const LoginPage = React.lazy(() => import('./pages/LoginPage'));
@@ -18,9 +18,10 @@ function LoadingFallback() {
 }
 
 function GuestRoute() {
-  const { user } = useSession();
+  const { user, loading } = useAuth();
   const location = useLocation();
   const redirect = new URLSearchParams(location.search).get('_redirect') || '/';
+  if (loading) return <LoadingFallback />;
   if (user) return <Navigate to={redirect} replace />;
   return (
     <Suspense fallback={<LoadingFallback />}>
@@ -30,8 +31,9 @@ function GuestRoute() {
 }
 
 function PrivateRoute() {
-  const { user } = useSession();
+  const { user, loading } = useAuth();
   const location = useLocation();
+  if (loading) return <LoadingFallback />;
   if (!user) return <Navigate to={`/login?_redirect=${encodeURIComponent(location.pathname)}`} replace />;
   return (
     <Suspense fallback={<LoadingFallback />}>
